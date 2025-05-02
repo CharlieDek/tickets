@@ -31,12 +31,12 @@ html,body,#map{height:100%;margin:0}
     padding:6px 12px;
     font:16px sans-serif; border:none; border-radius:4px;
     background:#fff; box-shadow:0 1px 4px rgba(0,0,0,.3);
-    font-family: "Inconsolata", monospace;    
+    font-family: "Inconsolata", monospace;
 }
 
 /* Drawer */
 #filter-drawer{
-    font-family: "Inconsolata", monospace;    
+    font-family: "Inconsolata", monospace;
     position:fixed; inset:0 0 0 auto;          /* right‑hand off‑canvas */
     width:80vw; max-width:320px;               /* comfortable on phones */
     background:#fafaf8e0; box-shadow:-2px 0 8px rgba(0,0,0,.3);
@@ -68,8 +68,10 @@ body.show-filters #filter-drawer{transform:none}
 }
 
 .toggle-all {
-    background-color: transparent;
+    background-color: #fff;
+    border: 1px solid black;
     margin-bottom: 6px;
+    font-family: "Inconsolata", monospace;
 }
 
 .filter-fieldset {
