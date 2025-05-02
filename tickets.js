@@ -23,21 +23,28 @@ fetch('data/bike_ebike.geojson')
     map.addSource('summons', { type:'geojson', data: gj });
 
     map.addLayer({
-      id    : summonsLayerId,
-      type  : 'circle',
-      source: 'summons',
-      paint : {
-        'circle-radius' : 4,
-        'circle-color'  : [
-          'match',
-          ['get', 'veh_category'],
-          'BIKE',  '#ff5500',
-          'EBIKE', '#0077ff',
-          /* else */ '#bbbbbb'
-        ],
-        'circle-opacity': 0.3
-      }
-    });
+        id: summonsLayerId,
+        type: 'circle',
+        source: 'summons',
+        paint: {
+          'circle-radius': [
+            'interpolate', ['exponential', 1.2], ['zoom'],
+             8,  2,
+            11,  5,
+            15, 7
+          ],
+      
+          // colour & opacity unchanged
+          'circle-color': [
+            'match',
+            ['get', 'veh_category'],
+            'BIKE',  '#ff5500',
+            'EBIKE', '#0077ff',
+            /* else */ '#bbbbbb'
+          ],
+          'circle-opacity': 0.30
+        }
+      });
 
     // fit to points
     const bounds = new maplibregl.LngLatBounds();
@@ -48,22 +55,13 @@ fetch('data/bike_ebike.geojson')
   })
   .catch(err => console.error('Could not load GeoJSON:', err));
 
-
-/*  Put your own human‑readable labels here  */
-const VIOLATION_CODE_DESCRIPTIONS = {
-    '403A3IX': 'Riding on sidewalk',
-    '402B1'  : 'No bell / horn',
-    // …etc
-  };
-
-
 function applyViolationFilter() {
     // grab all currently‑checked codes
     const selected = Array.from(
         document.querySelectorAll('input[name="violation_code"]:checked')
     ).map(cb => cb.value);
 
-    if (!map.getLayer(summonsLayerId)) return;          // safety guard
+    if (!map.getLayer(summonsLayerId)) return;
 
     if (selected.length === 0) {
         // no codes selected → hide the layer entirely
