@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>NYC Bike / E-Bike Summons Map - as of April 2025</title>
+
+  <!-- MapLibre GL -->
+  <link rel="stylesheet"
+        href="https://unpkg.com/maplibre-gl@3.4.0/dist/maplibre-gl.css">
+  <script src="https://unpkg.com/maplibre-gl@3.4.0/dist/maplibre-gl.js"></script>
+  <link rel="stylesheet"media="screen" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wdth,wght@99.7,300&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<div id="map"></div>
+<div class="legend" id="legend">
+    <div><span class="swatch bike"></span> Bike </div>
+    <div><span class="swatch ebike"></span> E-Bike </div>
+</div>
+<script src="tickets.js"></script>
+</body>
+</html>
