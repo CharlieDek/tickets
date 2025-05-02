@@ -14,6 +14,114 @@
 </head>
 <body>
 <div id="map"></div>
+<button id="filter-btn" aria-label="Show filters">☰ Filters</button>
+
+<aside id="filter-drawer">
+  <header>
+    <h2>Filters</h2>
+    <button id="close-drawer" aria-label="Close">✕</button>
+  </header>
+
+  <section id="filter-panel">
+    <details class="filter-group" id="vc-group">
+        <summary>Violation code</summary>
+      
+        <div class="filter-body">
+          <button type="button" id="vc-toggle-all" class="toggle-all">Deselect all</button>
+      
+          <fieldset class="filter-fieldset" id="violation-filter">
+            <legend class="visually-hidden">Filter by violation code</legend>      
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1111D1C" checked>Bicycle or skateboard failed to stop at red light</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1111D1E" checked>Disobeying a red light on a bicycle with electric assist</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1110AB" checked>Disobeyed traffic device while operating bicycle</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="403A3IX" checked>Bicycle failed to yield to pedestrian at red light</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="12385C" checked>Operating class three e-bike without a helmet</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="12425A" checked>Unlawful operation or parking of e-bike on sidewalk</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1127AB" checked>Driving wrong direction on one-way street - bicycle</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="403C1B" checked>Bicycle fail to yld right of way to pedestrian with walk signal</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="12426" checked>E-bike failing to yield right of way to pedestrian</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="407C31" checked>Bike/skate on sidewalk-nyc</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1111A1B" checked>Bicycle failed to yield right-of-way-green light</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1111A2Z" checked>Bicycle failed to yield green arrow</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="412P1" checked>Biking off lane</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="403C1" checked>Fail to yld right of way to pedestrian with walk signal</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="37524AB" checked>Oper bicycle with more 1 earphone</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1111D1N" checked>Nyc redlight</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="5091" checked>Unlicensed operator</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1110A" checked>Disobeyed traffic device - pavement markings</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1232AE" checked>Improper riding of e-bike</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1238" checked>No child bicycle helmet</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1236B" checked>No bell or signal device on bicycle</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1234CE" checked>Failure to stop e-bike before entering roadway</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1111A2X" checked>Bicycle disobeyed green arrow</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="3816" checked>Unapproved/no protective helmet motorcycle</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1127A" checked>Driving wrong direction on one-way street</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1236A" checked>No/inadequate lights-bicycle</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1236DE" checked>No/reflective tires/reflectors (e-bike)</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1102B" checked>Bicycle failed to comply with lawful order</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1236BE" checked>No bell/signal device (e-bike)</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="4011A" checked>Unregistered motor vehicle</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1172A" checked>Failed to stop at stop sign</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1236AE" checked>No/inadequate lights (e-bike)</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1234AE" checked>Failure to keep right (e-bike)</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="403A1" checked>Failed to yield to vehicle/pedestrian- nyc</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1232A" checked>Improper operation of bicycle</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1237E" checked>Improper hand and arm signals (e-bike)</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="12424" checked>Unlawful operation of e-bike on any public lands, property or greenway other than highway</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="412A1B" checked>Bicycle failed to comply with order - nyc</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="22611" checked>Unregistered limited use vehicle</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="3817" checked>Unapproved/no face shield/goggles- motorcycle</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1225A" checked>Driving on sidewalk</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="4101" checked>Unregistered motorcycle</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="403A5B" checked>Bicycle disobeyed stop sign- nyc</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="12427" checked>Failure to operate e-bike in a single file</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="4111" checked>No motorcycle plate</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1236C" checked>No/inadequate brakes-bicycle</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1236E" checked>No/improper reflector-bicycle</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="124210" checked>Prohibited use of class 3 e-bike outside of nyc</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="124211B" checked>Operation of e-bike with no/improper manufacturer's label</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="412P2" checked>Drive on bike lane- nyc</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="3191U" checked>Operating without insurance</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1102" checked>Failed to comply with lawful order</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="10231B" checked>Bicycle careless/negligent operation - tbta</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1236D" checked>No reflector wheel/bicycle</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="12429" checked>Operation of e-bike at a prohibited speed</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1235" checked>Carrying articles on bike or skateboard</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="403A3II" checked>Failed to yield to vehicle/pedestrian at red light- nyc</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1232BE" checked>Too many riders on e-bike</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1236EE" checked>No/improper reflective devices (e-bike)</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1163D" checked>Failed to signal lane change</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1232B" checked>Too many riders - bicycle</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1235E" checked>Carrying articles on e-bike</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="5092" checked>Operating out of class</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1144AV" checked>Fail to use due care passing hazard/emergency vehicle</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="123810" checked>No reflector after sunset</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1252B" checked>Improper passing-motorcycle</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1111D3" checked>Failed to stop on a steady red arrow</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1225D" checked>Oper motor vehicle while using portable electronic device</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1163DI" checked>Improper signal when changing lanes</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="403A3I" checked>Disobeyed steady red light- nyc</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="12331E" checked>Person operating e-bike clinging to vehicle</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1229AB" checked>Bicycle/pushcart/animal drawn vehicle on expressway</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="37524A" checked>UNKNOWN</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1128C" checked>Failed to use designated lane</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="403A4B" checked>Bicycle disobeyed colored arrow-nyc</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1225C2A" checked>Operating motor vehicle while on mobile phone</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1160C" checked>Improper left turn on one-way roadway</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1144A" checked>Failed to yield right-of-way to emergency vehicle</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="412M" checked>Improper use of bus lane- nyc</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="5092M" checked>Unlicensed operator motorcycle - lic exp less than 60 days</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="409B2" checked>No lighting equipment- nyc</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1111D1R" checked>Disobeying a red light on an electric scooter</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="407C" checked>Drive on sidewalk-nyc</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="406A1" checked>Speeding - nyc</label>
+          </fieldset>
+        </div>
+      </details> 
+  </section>
+</aside>
+
+
 <div class="legend" id="legend">
     <div><span class="swatch bike"></span> Bike </div>
     <div><span class="swatch ebike"></span> E-Bike </div>

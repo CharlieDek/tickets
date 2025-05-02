@@ -24,3 +24,55 @@ html,body,#map{height:100%;margin:0}
 /* use the same colors you set in tickets.js */
 .swatch.bike {background:#ff5500}   /* BIKE  */
 .swatch.ebike{background:#0077ff}   /* EBIKE */
+
+#filter-btn{
+    position:absolute; top:12px; left:12px;
+    z-index:3;
+    padding:6px 12px;
+    font:16px sans-serif; border:none; border-radius:4px;
+    background:#fff; box-shadow:0 1px 4px rgba(0,0,0,.3);
+    font-family: "Inconsolata", monospace;    
+}
+
+/* Drawer */
+#filter-drawer{
+    font-family: "Inconsolata", monospace;    
+    position:fixed; inset:0 0 0 auto;          /* right‑hand off‑canvas */
+    width:80vw; max-width:320px;               /* comfortable on phones */
+    background:#fafaf8e0; box-shadow:-2px 0 8px rgba(0,0,0,.3);
+    transform:translateX(100%); transition:.1s transform;
+    display:flex; flex-direction:column; gap:12px;
+    padding:16px 20px; z-index:4;
+}
+
+body.show-filters #filter-drawer{transform:none}
+
+#filter-drawer header{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-bottom:8px;
+}
+#filter-drawer h2{margin:0; font:18px/1.2 monospace}
+#close-drawer{background:none;border:none;font-size:20px}
+#filter-panel label{display:flex;align-items:center;gap:6px;margin:4px 0}
+
+.filter-group[open] summary::after {
+    transform: rotate(90deg);
+}
+
+.filter-body {
+    padding: 6px 8px 8px;
+}
+
+.filter-group summary {
+    padding: 8px;
+}
+
+.toggle-all {
+    background-color: transparent;
+    margin-bottom: 6px;
+}
+
+.filter-fieldset {
+    max-height: 400px;
+    overflow-y: scroll;
+}
