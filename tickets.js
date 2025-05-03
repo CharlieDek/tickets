@@ -17,18 +17,15 @@ const map = new maplibregl.Map({
 });
 map.addControl(new maplibregl.NavigationControl(), 'top-right');
 
-/* ---------------- data ---------------- */
 fetch('data/bike_ebike.geojson')
   .then(r => r.json())
   .then(gj => {
 
-    // strip bogus coords
     gj.features = gj.features.filter(f=>{
       const [lng,lat] = f.geometry.coordinates;
       return lng!==0 && lat!==0;
     });
 
-    /* ---------- two sources, same data ---------- */
     map.addSource(DOTS_SRC, {type:'geojson', data:gj});
 
     map.addSource(CLUSTER_SRC,{
@@ -39,7 +36,6 @@ fetch('data/bike_ebike.geojson')
       clusterMaxZoom:17
     });
 
-    /* ---------- individual‑ticket layer ---------- */
     map.addLayer({
       id   : DOTS_LAYER,
       type : 'circle',
@@ -55,12 +51,11 @@ fetch('data/bike_ebike.geojson')
           'EBIKE','#0077ff',
           /*else*/'#bbbbbb'
         ],
-        'circle-opacity':0.30
+        'circle-opacity':0.3
       }
     });
 
-    /* ---------- aggregate layers (initially hidden) ---------- */
-    map.addLayer({                       // bubbles
+    map.addLayer({
       id     : CLUSTER_LAYER,
       type   : 'circle',
       source : CLUSTER_SRC,
@@ -69,14 +64,14 @@ fetch('data/bike_ebike.geojson')
       paint  : {
         'circle-radius': [
           'step',['get','point_count'],
-           8, 10,10, 50,14, 100,17, 150,20
+           8, 10,10, 50,14, 100,17, 150,20,  1000, 23, 5000, 26, 10000, 29,   20000, 31
         ],
         'circle-color':'#4f4dad',
         'circle-opacity':0.80
       }
     });
 
-    map.addLayer({                       // bubble count labels
+    map.addLayer({
       id     : CLUSTER_COUNT,
       type   : 'symbol',
       source : CLUSTER_SRC,
@@ -89,7 +84,7 @@ fetch('data/bike_ebike.geojson')
       paint : { 'text-color':'#ffffff' }
     });
 
-    map.addLayer({                       // singles that *didn’t* merge
+    map.addLayer({
       id     : CLUSTER_UNCLUSTERED,
       type   : 'circle',
       source : CLUSTER_SRC,
@@ -102,17 +97,15 @@ fetch('data/bike_ebike.geojson')
       }
     });
 
-    /* ---------- initial map view ---------- */
     const bounds = new maplibregl.LngLatBounds();
     gj.features.forEach(f=>bounds.extend(f.geometry.coordinates));
     map.fitBounds(bounds,{padding:40,maxZoom:14});
   })
   .catch(err=>console.error('GeoJSON load failed',err));
 
-/* ---------------- violation‑code filter logic ---------------- */
 
 function applyViolationFilter(){
-  if(aggMode) return;                       // disabled in aggregate mode
+  if(aggMode) return;
 
   const selected = Array.from(
     document.querySelectorAll('input[name="violation_code"]:checked')
