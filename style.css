@@ -25,13 +25,24 @@ html,body,#map{height:100%;margin:0}
 .swatch.bike {background:#ff5500}   /* BIKE  */
 .swatch.ebike{background:#0077ff}   /* EBIKE */
 
-#filter-btn{
-    position:absolute; top:12px; left:12px;
+#controls-div {
+    position:absolute; top:30px; left:12px;
     z-index:3;
+}
+
+#filter-btn{
+    display: block;
     padding:6px 12px;
     font:16px sans-serif; border:none; border-radius:4px;
     background:#fff; box-shadow:0 1px 4px rgba(0,0,0,.3);
     font-family: "Inconsolata", monospace;
+}
+
+#agg-toggle {
+    display: block;
+    color: red;
+    background-color: pink;
+    border: 1px solid black;
 }
 
 /* Drawer */
