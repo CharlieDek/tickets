@@ -1,7 +1,3 @@
-/* -------------------------------------------------------------
- * NYC bike‑summons map     (individual view  ⇄  aggregate view)
- * ------------------------------------------------------------- */
-
 const DOTS_LAYER         = 'dots';
 const DOTS_SRC           = 'summons';
 
@@ -135,7 +131,6 @@ function applyViolationFilter(){
   }
 }
 
-/* ----- hook up your existing checkboxes & “select all” button ----- */
 const vcBoxes = Array.from(
   document.querySelectorAll('input[name="violation_code"]')
 );
@@ -160,9 +155,8 @@ function refreshToggleAllText(){
 }
 refreshToggleAllText();
 
-/* ---------------- aggregate toggle ---------------- */
 const aggToggle = document.getElementById('agg-toggle');
-aggToggle.addEventListener('change',e=>setAggregation(e.target.checked));
+aggToggle.addEventListener('click', () =>setAggregation(!aggMode));
 
 function setAggregation(on){
     aggMode = on;
@@ -172,7 +166,6 @@ function setAggregation(on){
     map.setLayoutProperty(CLUSTER_COUNT,        'visibility', on?'visible':'none');
     map.setLayoutProperty(CLUSTER_UNCLUSTERED,  'visibility', on?'visible':'none');
 
-    /* enable / disable the filter UI */
     [...vcBoxes,toggleAllBtn].forEach(el=>{ el.disabled=on; });
     if(on){
         vcBoxes.forEach(cb=>cb.checked=true);
@@ -180,10 +173,6 @@ function setAggregation(on){
         applyViolationFilter();
     }
 }
-
-/* start in individual‑ticket mode */
-// setAggregation(false);
-
 
 document.querySelectorAll('input[name="violation_code"]')
 .forEach(cb => cb.addEventListener('change', applyViolationFilter));
