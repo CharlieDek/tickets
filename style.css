@@ -90,3 +90,21 @@ body.show-filters #filter-drawer{transform:none}
     max-height: 400px;
     overflow-y: scroll;
 }
+
+.maplibregl-popup-content {
+    background : #f2f5f1cd;
+    color      : #273e2e;
+    padding    : 5px 8px;
+    border-radius: 3px;
+    font-size  : 11px;
+    line-height: 1.0;
+    box-shadow : 0 0 4px rgba(0,0,0,.35);
+  }
+  
+  .maplibregl-popup {
+    padding-bottom: 0;
+  }
+  
+  .maplibregl-popup-tip {
+    border-width: 1px;
+  }
