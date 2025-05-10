@@ -8,6 +8,7 @@ const CLUSTER_UNCLUSTERED= 'summons-unclustered';
 const CODE_MAPPING = {"1111D1C": "Bicycle failed to stop at red light", "1111D1E": "E-bike disobeyed red light", "1110AB": "Disobeyed traffic device on bicycle", "403A3IX": "Bike did not yield to pedestrian at red", "12385C": "Operating class three e-bike without a helmet", "12425A": "Unlawful operation or parking of e-bike on sidewalk", "1127AB": "Driving wrong direction on one-way street - bicycle", "403C1B": "Bicycle fail to yld right of way to pedestrian with walk signal", "12426": "E-bike failing to yield right of way to pedestrian", "407C31": "Bike/skate on sidewalk-NYC", "1111A1B": "Bicycle failed to yield right-of-way-green light", "1111A2Z": "Bicycle failed to yield green arrow", "412P1": "Biking off lane", "403C1": "Fail to yld right of way to pedestrian with walk signal", "37524AB": "Oper bicycle with more 1 earphone", "1111D1N": "NYC redlight", "5091": "Unlicensed operator", "1110A": "Disobeyed traffic device - pavement markings", "1232AE": "Improper riding of e-bike", "1238": "No child bicycle helmet", "1236B": "No bell or signal device on bicycle", "1234CE": "Failure to stop e-bike before entering roadway", "1111A2X": "Bicycle disobeyed green arrow", "3816": "Unapproved/no protective helmet motorcycle", "1127A": "Driving wrong direction on one-way street", "1236A": "No/inadequate lights-bicycle", "1236DE": "No/reflective tires/reflectors (e-bike)", "1102B": "Bicycle failed to comply with lawful order", "1236BE": "No bell/signal device (e-bike)", "4011A": "Unregistered motor vehicle", "1172A": "Failed to stop at stop sign", "1236AE": "No/inadequate lights (e-bike)", "1234AE": "Failure to keep right (e-bike)", "403A1": "Failed to yield to vehicle/pedestrian- NYC", "1232A": "Improper operation of bicycle", "1237E": "Improper hand and arm signals (e-bike)", "12424": "Unlawful operation of e-bike on any public lands, property or greenway other than highway", "412A1B": "Bicycle failed to comply with order - NYC", "22611": "Unregistered limited use vehicle", "3817": "Unapproved/no face shield/goggles- motorcycle", "1225A": "Driving on sidewalk", "4101": "Unregistered motorcycle", "403A5B": "Bicycle disobeyed stop sign- NYC", "12427": "Failure to operate e-bike in a single file", "4111": "No motorcycle plate", "1236C": "No/inadequate brakes-bicycle", "1236E": "No/improper reflector-bicycle", "124210": "Prohibited use of class 3 e-bike outside of NYC", "124211B": "Operation of e-bike with no/improper manufacturer's label", "412P2": "Drive on bike lane- NYC", "3191U": "Operating without insurance", "1102": "Failed to comply with lawful order", "10231B": "Bicycle careless/negligent operation - tbta", "1236D": "No reflector wheel/bicycle", "12429": "Operation of e-bike at a prohibited speed", "1235": "Carrying articles on bike or skateboard", "403A3II": "Failed to yield to vehicle/pedestrian at red light- NYC", "1232BE": "Too many riders on e-bike", "1236EE": "No/improper reflective devices (e-bike)", "1163D": "Failed to signal lane change", "1232B": "Too many riders - bicycle", "1235E": "Carrying articles on e-bike", "5092": "Operating out of class", "1144AV": "Fail to use due care passing hazard/emergency vehicle", "123810": "No reflector after sunset", "1252B": "Improper passing-motorcycle", "1111D3": "Failed to stop on a steady red arrow", "1225D": "Oper motor vehicle while using portable electronic device", "1163DI": "Improper signal when changing lanes", "403A3I": "Disobeyed steady red light- NYC", "12331E": "Person operating e-bike clinging to vehicle", "1229AB": "Bicycle/pushcart/animal drawn vehicle on expressway", "37524A": "UNKNOWN", "1128C": "Failed to use designated lane", "403A4B": "Bicycle disobeyed colored arrow-NYC", "1225C2A": "Operating motor vehicle while on mobile phone", "1160C": "Improper left turn on one-way roadway", "1144A": "Failed to yield right-of-way to emergency vehicle", "412M": "Improper use of bus lane- NYC", "5092M": "Unlicensed operator motorcycle - lic exp less than 60 days", "409B2": "No lighting equipment- NYC", "1111D1R": "Disobeying a red light on an electric scooter", "407C": "Drive on sidewalk-NYC", "406A1": "Speeding - NYC"};
 
 let aggMode = false;         // current state
+let activeCategories = ['BIKE', 'EBIKE']; // Track active vehicle categories
 
 const map = new maplibregl.Map({
     container : 'map',
@@ -104,6 +105,12 @@ function loadTickets() {
     const bounds = new maplibregl.LngLatBounds();
     gj.features.forEach(f=>bounds.extend(f.geometry.coordinates));
     map.fitBounds(bounds,{padding:40,maxZoom:14});
+    
+    // Set up category filter click handlers
+    setupCategoryFilters();
+    
+    // Apply initial category filter
+    applyCategoryFilter();
   })
   .catch(err=>console.error('GeoJSON load failed',err));
 }
@@ -123,9 +130,67 @@ function applyViolationFilter(){
     map.setLayoutProperty(DOTS_LAYER,'visibility','visible');
     map.setFilter(
       DOTS_LAYER,
-      ['in',['get','violation_code'],['literal',selected]]
+      ['all',
+        ['in',['get','violation_code'],['literal',selected]],
+        ['in',['get','veh_category'],['literal',activeCategories]]
+      ]
     );
   }
+}
+
+// Apply filter for vehicle categories
+function applyCategoryFilter() {
+  if(aggMode) return;
+  
+  if(!map.getLayer(DOTS_LAYER)) return;
+  
+  if(activeCategories.length === 0) {
+    map.setLayoutProperty(DOTS_LAYER,'visibility','none');
+  } else {
+    map.setLayoutProperty(DOTS_LAYER,'visibility','visible');
+    
+    const violationCodes = Array.from(
+      document.querySelectorAll('input[name="violation_code"]:checked')
+    ).map(cb=>cb.value);
+    
+    map.setFilter(
+      DOTS_LAYER,
+      ['all',
+        ['in',['get','veh_category'],['literal',activeCategories]],
+        ['in',['get','violation_code'],['literal',violationCodes]]
+      ]
+    );
+  }
+}
+
+// Set up click handlers for category filter legend items
+function setupCategoryFilters() {
+  const legendItems = document.querySelectorAll('.legend-item');
+  
+  legendItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const category = item.dataset.category;
+      
+      // Toggle active state
+      if (item.classList.contains('active')) {
+        // Don't allow deactivating all categories
+        if (activeCategories.length > 1) {
+          item.classList.remove('active');
+          item.classList.add('inactive');
+          activeCategories = activeCategories.filter(cat => cat !== category);
+        }
+      } else {
+        item.classList.add('active');
+        item.classList.remove('inactive');
+        if (!activeCategories.includes(category)) {
+          activeCategories.push(category);
+        }
+      }
+      
+      // Apply the updated filter
+      applyCategoryFilter();
+    });
+  });
 }
 
 const vcBoxes = Array.from(
