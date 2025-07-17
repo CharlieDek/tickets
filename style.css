@@ -33,7 +33,7 @@ html,body,#map{height:100%;margin:0}
 .control-btn {
     display: block;
     padding:6px 12px;
-    font:16px sans-serif; border:none; border-radius:4px;
+    font:20px sans-serif; border:none; border-radius:4px;
     background:#fff; 
     box-shadow:0 1px 4px rgba(0,0,0,.3);
     font-family: "Inconsolata", monospace;
@@ -108,3 +108,113 @@ body.show-filters #filter-drawer{transform:none}
   .maplibregl-popup-tip {
     border-width: 1px;
   }
+
+/* Add these styles to your existing style.css file */
+
+/* Grid layout for hour checkboxes */
+.hour-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.hour-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+
+.hour-item input[type="checkbox"] {
+  margin-right: 6px;
+}
+
+/* Grid layout for month checkboxes */
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.month-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.9em;
+}
+
+.month-item input[type="checkbox"] {
+  margin-right: 6px;
+}
+
+/* Pink slip filter styling */
+.pinkslip-item {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+  font-size: 0.9em;
+}
+
+.pinkslip-item input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+/* Updated legend styles */
+.legend {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 12px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  font-size: 14px;
+}
+
+.legend div {
+  display: flex;
+  align-items: center;
+  margin: 4px 0;
+}
+
+.swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin-right: 8px;
+  display: inline-block;
+}
+
+.swatch.orange {
+  background-color: #ff5500;
+}
+
+.swatch.blue {
+  background-color: #0077ff;
+}
+
+.swatch.pink {
+  background-color: #ff1493;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hour-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .month-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .hour-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .month-grid {
+    grid-template-columns: 1fr;
+  }
+}  

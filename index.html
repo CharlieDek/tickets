@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>NYC Bike / E-Bike Summons - Year-to-date April 2025</title>
+  <title>NYC Bike / E-Bike Summons - Jan-June 2025</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.4.0/dist/maplibre-gl.css">
   <script src="https://unpkg.com/maplibre-gl@3.4.0/dist/maplibre-gl.js"></script>
@@ -13,7 +13,7 @@
 <div id="map"></div>
 <div id="controls-div">
     <button class="control-btn" id="filter-btn" aria-label="Show filters">Filters</button>
-    <button class="control-btn" id="agg-toggle">Aggregate</button>
+    <!-- <button class="control-btn" id="agg-toggle">Aggregate</button> -->
 </div>
 <aside id="filter-drawer">
   <header>
@@ -21,14 +21,52 @@
     <button id="close-drawer" aria-label="Close">✕</button>
   </header>
   <section id="filter-panel">
+
+    <details class="filter-group" id="pinkslip-group" open>
+      <summary>Criminal Summons Y/N</summary>
+      <div class="filter-body">
+        <fieldset class="filter-fieldset" id="pinkslip-filter">
+          <!-- <legend class="visually-hidden">Filter by summons type</legend> -->
+          <label class="pinkslip-item"><input type="checkbox" name="pinkslip" value="true" checked>Criminal Summons</label>
+          <label class="pinkslip-item"><input type="checkbox" name="pinkslip" value="false" checked>Moving Summons (non-criminal)</label>
+        </fieldset>
+      </div>
+    </details>
+
+    <!-- Month Filter -->
+    <details class="filter-group" id="month-group">
+      <summary>Month</summary>
+      <div class="filter-body">
+        <button type="button" id="month-toggle-all" class="toggle-all">Deselect all</button>
+        <fieldset class="filter-fieldset month-grid" id="month-filter">
+          <legend class="visually-hidden">Filter by month</legend>
+          <label class="month-item"><input type="checkbox" name="month_of_year" value="01" checked>January</label>
+          <label class="month-item"><input type="checkbox" name="month_of_year" value="02" checked>February</label>
+          <label class="month-item"><input type="checkbox" name="month_of_year" value="03" checked>March</label>
+          <label class="month-item"><input type="checkbox" name="month_of_year" value="04" checked>April</label>
+          <label class="month-item"><input type="checkbox" name="month_of_year" value="05" checked>May</label>
+          <label class="month-item"><input type="checkbox" name="month_of_year" value="06" checked>June</label>
+          <!-- <label class="month-item"><input type="checkbox" name="month_of_year" value="07" checked>July</label> -->
+          <!-- <label class="month-item"><input type="checkbox" name="month_of_year" value="08" checked>August</label> -->
+          <!-- <label class="month-item"><input type="checkbox" name="month_of_year" value="09" checked>September</label> -->
+          <!-- <label class="month-item"><input type="checkbox" name="month_of_year" value="10" checked>October</label> -->
+          <!-- <label class="month-item"><input type="checkbox" name="month_of_year" value="11" checked>November</label> -->
+          <!-- <label class="month-item"><input type="checkbox" name="month_of_year" value="12" checked>December</label> -->
+        </fieldset>
+      </div>
+    </details>
+
+    <!-- Violation Code Filter -->
     <details class="filter-group" id="vc-group">
         <summary>Violation code</summary>
         <div class="filter-body">
           <button type="button" id="vc-toggle-all" class="toggle-all">Deselect all</button>
           <fieldset class="filter-fieldset" id="violation-filter">
             <legend class="visually-hidden">Filter by violation code</legend>      
+            <label class="code-item"><input type="checkbox" name="violation_code" value="Bicycle on sidewalk (Summons C)" checked>Bicycle On Sidewalk (Criminal Summons)</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="1111D1C" checked>Bicycle or skateboard failed to stop at red light</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="1111D1E" checked>Disobeying a red light on a bicycle with electric assist</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="Bicycle infraction (Summons C)" checked>Bicycle Infraction (Criminal Summons)</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="1110AB" checked>Disobeyed traffic device while operating bicycle</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="403A3IX" checked>Bicycle failed to yield to pedestrian at red light</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="12385C" checked>Operating class three e-bike without a helmet</label>
@@ -41,6 +79,7 @@
             <label class="code-item"><input type="checkbox" name="violation_code" value="1111A2Z" checked>Bicycle failed to yield green arrow</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="412P1" checked>Biking off lane</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="403C1" checked>Fail to yld right of way to pedestrian with walk signal</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="Bike in park (Summons C)" checked>Bike in Park (Criminal Summons)</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="37524AB" checked>Oper bicycle with more 1 earphone</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="1111D1N" checked>NYC redlight</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="5091" checked>Unlicensed operator</label>
@@ -86,6 +125,7 @@
             <label class="code-item"><input type="checkbox" name="violation_code" value="403A3II" checked>Failed to yield to vehicle/pedestrian at red light- NYC</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="1232BE" checked>Too many riders on e-bike</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="1236EE" checked>No/improper reflective devices (e-bike)</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1234C" checked>Cyclist failed to stop before entering roadway from curb</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="1163D" checked>Failed to signal lane change</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="1232B" checked>Too many riders - bicycle</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="1235E" checked>Carrying articles on e-bike</label>
@@ -95,6 +135,7 @@
             <label class="code-item"><input type="checkbox" name="violation_code" value="1252B" checked>Improper passing-motorcycle</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="1111D3" checked>Failed to stop on a steady red arrow</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="1225D" checked>Oper motor vehicle while using portable electronic device</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="4021A" checked>No or single license plate on e-bike</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="1163DI" checked>Improper signal when changing lanes</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="403A3I" checked>Disobeyed steady red light- NYC</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="12331E" checked>Person operating e-bike clinging to vehicle</label>
@@ -103,11 +144,19 @@
             <label class="code-item"><input type="checkbox" name="violation_code" value="1128C" checked>Failed to use designated lane</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="403A4B" checked>Bicycle disobeyed colored arrow-NYC</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="1225C2A" checked>Operating motor vehicle while on mobile phone</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="12428" checked>E-bike improperly above 30mph</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="1160C" checked>Improper left turn on one-way roadway</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1225C2D" checked>Using cellphone on highway on e-bike</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="1234A" checked>Failure to keep right (bicycle)</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="1144A" checked>Failed to yield right-of-way to emergency vehicle</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="22653" checked>*Unclear - maybe inappropriate parking of e-bike</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="3752A1" checked>No headlamps on e-bike</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="412M" checked>Improper use of bus lane- NYC</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="412A3" checked>Failed to present document- NYC</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="4113" checked>Improper plates motorcycle</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="5092M" checked>Unlicensed operator motorcycle - lic exp less than 60 days</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="409B2" checked>No lighting equipment- NYC</label>
+            <label class="code-item"><input type="checkbox" name="violation_code" value="5098" checked>Failed to notify DMV change of address</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="1111D1R" checked>Disobeying a red light on an electric scooter</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="407C" checked>Drive on sidewalk-NYC</label>
             <label class="code-item"><input type="checkbox" name="violation_code" value="406A1" checked>Speeding - NYC</label>
@@ -117,8 +166,9 @@
   </section>
 </aside>
 <div class="legend" id="legend">
-    <div><span class="swatch bike"></span> Bike </div>
-    <div><span class="swatch ebike"></span> E-Bike </div>
+    <div><span class="swatch orange"></span>Bike Ticket</div>
+    <div><span class="swatch blue"></span>E-Bike Ticket</div>
+    <div><span class="swatch pink"></span>Criminal Summons Bike or E-Bike</div>
 </div>
 <script src="tickets.js"></script>
 </body>
