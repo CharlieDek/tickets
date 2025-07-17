@@ -109,10 +109,8 @@ body.show-filters #filter-drawer{transform:none}
     border-width: 1px;
   }
 
-/* Add these styles to your existing style.css file */
 
-/* Grid layout for hour checkboxes */
-.hour-grid {
+  .hour-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
@@ -130,7 +128,6 @@ body.show-filters #filter-drawer{transform:none}
   margin-right: 6px;
 }
 
-/* Grid layout for month checkboxes */
 .month-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -148,7 +145,6 @@ body.show-filters #filter-drawer{transform:none}
   margin-right: 6px;
 }
 
-/* Pink slip filter styling */
 .pinkslip-item {
   display: flex;
   align-items: center;
@@ -160,7 +156,6 @@ body.show-filters #filter-drawer{transform:none}
   margin-right: 8px;
 }
 
-/* Updated legend styles */
 .legend {
   position: absolute;
   bottom: 20px;
